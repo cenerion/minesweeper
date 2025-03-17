@@ -9,7 +9,10 @@ public class GameManager : MonoBehaviour
 
 
 	public GameObject fieldMap;
-    public GameObject textMapSize;
+    public GameEndScreen gameEndScreen;
+    public TextMeshProUGUI textMapSize;
+    public TextMeshProUGUI textFlagsLeftCount;
+    public TextMeshProUGUI textTotalMinesCount;
 
 	public int size = 5;
 
@@ -18,21 +21,32 @@ public class GameManager : MonoBehaviour
     {
         Screen.SetResolution(640, 480, false);
         updateSizeText();
+        gameEndScreen.hideEndGame();
     }
 
-    // Update is called once per frame
-    void Update(){
-
-    }
+    void Update(){}
 
     public void startGame(){
         fieldMap.GetComponent<Field>().setupField(size);
+        gameEndScreen.hideEndGame();
+    }
+
+    public void endGame(bool win){
+        gameEndScreen.showEndGame(win);
     }
 
 
+    public void setMinesCountText(int mines) {
+        textTotalMinesCount.text = "Ilość min: " + mines.ToString();
+    }
+
+    public void setFlagsCountText(int flags) {
+        textFlagsLeftCount.text = "Pozostało flag: " + flags.ToString();
+    }
+
     private void updateSizeText() {
         if(textMapSize != null){
-            textMapSize.GetComponent<TextMeshProUGUI>().text = "Wielkość: " + size.ToString();
+            textMapSize.text = "Wielkość: " + size.ToString();
         }
     }
 

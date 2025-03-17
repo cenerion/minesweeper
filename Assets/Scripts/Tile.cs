@@ -23,6 +23,7 @@ public class Tile : MonoBehaviour, IPointerClickHandler// for mouse input
     public int idx;
 
     Image image;
+    public bool isClickable = true;
 
     public Sprite tile_unreveald;
     public Sprite tile_bomb;
@@ -46,6 +47,9 @@ public class Tile : MonoBehaviour, IPointerClickHandler// for mouse input
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        if(!isClickable)
+            return;
+
         if (eventData.button == PointerEventData.InputButton.Left)
         {
             if(!isFlagged){
@@ -109,11 +113,11 @@ public class Tile : MonoBehaviour, IPointerClickHandler// for mouse input
             return;
         
         isFlagged = !isFlagged;
-        if(isFlagged){
-            image.sprite = tile_flagged;
-        }
-        else{
-            image.sprite = tile_unreveald;
-        }
+        
+        var field = gameObject.transform.parent.gameObject.GetComponent<Field>();
+        field.onSetFlag(isFlagged);
+        
+        image.sprite = isFlagged ? tile_flagged : tile_unreveald;
+        
     }
 }

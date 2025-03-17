@@ -10,16 +10,22 @@ using System.Linq;
 public class Field : MonoBehaviour
 {
 	public GameObject tilePrefab;
+    public GameManager gameManager;
     private List<Tile> tiles = new List<Tile>();
     private int size;
-
+    public int flagsCount = 0;
+    public int minesCount = 0;
+    public int revealedCount = 0;
 
     void Start(){}
     void Update(){}
 
     public void setupField(int size){
         this.size = size;
-        var minesCount = calculateMineCount(size);
+        flagsCount = 0;
+        revealedCount = 0;
+        minesCount = calculateMineCount(size);
+        gameManager.setMinesCountText(minesCount);
 
         var gen = new MinesweeperMapGenerator(size, size, minesCount);
         var map = gen.GenerateBoard();
@@ -59,13 +65,21 @@ public class Field : MonoBehaviour
         return (int) (((37.0*(x*x))-325.0)/200.0);
     }
 
+    public void onSetFlag(bool flagSet) {
+        flagsCount += flagSet ? 1 : -1;
+        gameManager.setFlagsCountText(minesCount - flagsCount);
+    }
+
 
 
     public void revealTiles(int x, int y, int idx){
         var tile = tiles[idx];
+        if(tile.isRevealed)
+            return;
 
         if(tile.isBomb){
-            //TODO the end
+            gameOver();
+            return;
         }
 
         var list = new Queue<int>();
@@ -75,20 +89,17 @@ public class Field : MonoBehaviour
             var t = tiles[list.Dequeue()];
 
             if(t.adjacentBombs == 0){
-                if(t.posX > 0 && (!tiles[t.idx-1].isRevealed) && (!list.Contains(t.idx-1))){
+                if(t.posX > 0 && (!tiles[t.idx-1].isRevealed) && (!list.Contains(t.idx-1)))
                     list.Enqueue(t.idx-1);
-                }
 
                 if(t.posX < size-1 && (!tiles[t.idx+1].isRevealed) && (!list.Contains(t.idx+1)))
                     list.Enqueue(t.idx+1);
 
-                if(t.posY > 0 && (!tiles[t.idx-size].isRevealed) && (!list.Contains(t.idx-size))){
+                if(t.posY > 0 && (!tiles[t.idx-size].isRevealed) && (!list.Contains(t.idx-size)))
                         list.Enqueue(t.idx-size);
-                }
 
-                if(t.posY < size-1 && (!tiles[t.idx+size].isRevealed) && (!list.Contains(t.idx+size))){
+                if(t.posY < size-1 && (!tiles[t.idx+size].isRevealed) && (!list.Contains(t.idx+size)))
                     list.Enqueue(t.idx+size);
-                }
 
                 if(t.posY > 0 && t.posX > 0 && (!tiles[t.idx-size-1].isRevealed) && (!list.Contains(t.idx-size-1)))
                     list.Enqueue(t.idx-size-1);
@@ -104,13 +115,20 @@ public class Field : MonoBehaviour
             }
 
             t.RevealTail();
+            revealedCount += 1;
         }
+
+        if( tiles.Count - revealedCount == minesCount)
+            gameManager.endGame(true);
     }
 
     public void gameOver(){
+        gameManager.endGame(false);
         foreach (var tile in tiles)
         {
-            //tile.RevealTail()
+            tile.isClickable = false;
+            if(tile.isBomb)
+                tile.RevealTail();
         }
     }
 
