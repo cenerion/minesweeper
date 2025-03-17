@@ -11,10 +11,9 @@ GameObject:
   - component: {fileID: 3956424178669524455}
   - component: {fileID: 4798818177071939519}
   - component: {fileID: 308344296313694914}
-  - component: {fileID: 3562381012248076504}
   - component: {fileID: 8959210693295138416}
   m_Layer: 5
-  m_Name: Button
+  m_Name: MinefieldTile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -77,62 +76,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &3562381012248076504
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3278407006489762779}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Navigation:
-    m_Mode: 3
-    m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
-  m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
-    m_ColorMultiplier: 1
-    m_FadeDuration: 0.1
-  m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
-  m_AnimationTriggers:
-    m_NormalTrigger: Normal
-    m_HighlightedTrigger: Highlighted
-    m_PressedTrigger: Pressed
-    m_SelectedTrigger: Selected
-    m_DisabledTrigger: Disabled
-  m_Interactable: 1
-  m_TargetGraphic: {fileID: 308344296313694914}
-  m_OnClick:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3278407006489762779}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 1
 --- !u!114 &8959210693295138416
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -145,7 +88,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce07cd2c301663b9f94cc86474383aa6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isBomb: 0
   isRevealed: 0
   isFlagged: 0
   adjacentBombs: 0
+  posX: 0
+  posY: 0
+  idx: 0
+  tile_unreveald: {fileID: 1807125615787039003, guid: c7fc1a24c05bd48eb86dac1e6cb9ae56, type: 3}
+  tile_bomb: {fileID: 740677054, guid: c7fc1a24c05bd48eb86dac1e6cb9ae56, type: 3}
+  tile_flagged: {fileID: 1716130088, guid: c7fc1a24c05bd48eb86dac1e6cb9ae56, type: 3}
+  tile_n0: {fileID: -2075596613, guid: c7fc1a24c05bd48eb86dac1e6cb9ae56, type: 3}
+  tile_n1: {fileID: -1535281396, guid: c7fc1a24c05bd48eb86dac1e6cb9ae56, type: 3}
+  tile_n2: {fileID: -1111009622, guid: c7fc1a24c05bd48eb86dac1e6cb9ae56, type: 3}
+  tile_n3: {fileID: 296606052, guid: c7fc1a24c05bd48eb86dac1e6cb9ae56, type: 3}
+  tile_n4: {fileID: 538991473, guid: c7fc1a24c05bd48eb86dac1e6cb9ae56, type: 3}
+  tile_n5: {fileID: 208512582, guid: c7fc1a24c05bd48eb86dac1e6cb9ae56, type: 3}
+  tile_n6: {fileID: -588034134, guid: c7fc1a24c05bd48eb86dac1e6cb9ae56, type: 3}
+  tile_n7: {fileID: 52353722, guid: c7fc1a24c05bd48eb86dac1e6cb9ae56, type: 3}
+  tile_n8: {fileID: -526503271, guid: c7fc1a24c05bd48eb86dac1e6cb9ae56, type: 3}
